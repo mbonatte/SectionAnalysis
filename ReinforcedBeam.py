@@ -60,7 +60,6 @@ class ReinforcedBeam:
           print()
           fig = plt.Figure(figsize = (5,5))
           ax1 = fig.add_subplot()
-          ax2 = fig.add_subplot()
           ax1.set_title("Stress Driagram")
           ax1.set_xlabel('Concrete - Stress')
           ax1.set_ylabel('Height')

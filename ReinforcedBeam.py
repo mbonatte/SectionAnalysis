@@ -58,7 +58,7 @@ class ReinforcedBeam:
           print("Rebar normal resistance: ",self.rebars.get_rebars_normal_res(e0,k,self.section.center))
           print("Total normal resistance: ",self.get_normal_res(e0,k))
           print()
-          fig = Figure(figsize = (5,5))
+          fig = plt.subplots(figsize=(5,5))
           ax1 = fig.add_subplot()
           ax2 = fig.add_subplot()
           ax1.set_title("Stress Driagram")
@@ -89,8 +89,7 @@ class ReinforcedBeam:
         
         
     def plot_interaction_curve(self,n_points=100):
-        fig = Figure(figsize = (5,5))
-        graph = fig.add_subplot()
+        fig, graph = plt.subplots(figsize=(5,5))
         graph.grid()
         graph.set_title("Interaction curve")
         graph.set(xlabel='Normal')

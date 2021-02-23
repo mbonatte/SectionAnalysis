@@ -58,8 +58,7 @@ class ReinforcedBeam:
           print("Rebar normal resistance: ",self.rebars.get_rebars_normal_res(e0,k,self.section.center))
           print("Total normal resistance: ",self.get_normal_res(e0,k))
           print()
-          fig = plt.Figure(figsize = (5,5))
-          ax1 = fig.add_subplot()
+          fig, ax1 = plt.subplots(figsize=(8,6))
           ax1.set_title("Stress Driagram")
           ax1.set_xlabel('Concrete - Stress')
           ax1.set_ylabel('Height')
@@ -67,7 +66,7 @@ class ReinforcedBeam:
           self.section.plot_stress(ax1,e0,k)
           ax2 = ax1.twiny()
           ax2.set_xlabel("Rebar - Stress")
-          self.rebars.plot_stress(ax2,e0,k,self.section.center)    
+          self.rebars.plot_stress(ax2,e0,k,self.section.center)
     
     def plot_moment(self,graph, k_max, n_points = 50):
         k = [(k_max/n_points)*i for i in range(n_points)]

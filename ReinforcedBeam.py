@@ -58,7 +58,7 @@ class ReinforcedBeam:
           print("Rebar normal resistance: ",self.rebars.get_rebars_normal_res(e0,k,self.section.center))
           print("Total normal resistance: ",self.get_normal_res(e0,k))
           print()
-          fig = plt.subplots(figsize=(5,5))
+          fig = plt.Figure(figsize = (5,5))
           ax1 = fig.add_subplot()
           ax2 = fig.add_subplot()
           ax1.set_title("Stress Driagram")

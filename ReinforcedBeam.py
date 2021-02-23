@@ -2,8 +2,6 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure 
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg)
 
 class ReinforcedBeam:
     def __init__(self, section, rebars):
@@ -29,7 +27,7 @@ class ReinforcedBeam:
             normal = self.get_normal_res(e0,k)
         return e0
     
-    def check_section(self, normal, moment, n_ite =10,root=None):
+    def check_section(self, normal, moment, n_ite =10):
         norm = 10
         stiff = 10
         n = 0
@@ -71,11 +69,8 @@ class ReinforcedBeam:
           ax2 = ax1.twiny()
           ax2.set_xlabel("Rebar - Stress")
           self.rebars.plot_stress(ax2,e0,k,self.section.center)    
-          canvas = FigureCanvasTkAgg(fig, master= root)
-          canvas.draw()
-          canvas.get_tk_widget().pack()
     
-    def plot_moment(self,k_max = 0.02,n_points = 50,root=None):        
+    def plot_moment(self,graph, k_max, n_points = 50):
         k = [(k_max/n_points)*i for i in range(n_points)]
         total_moment = [0 for i in k]
         concrete_moment = [0 for i in k]
@@ -86,28 +81,14 @@ class ReinforcedBeam:
             total_moment[i] = self.get_moment_res(e0,k[i])
             concrete_moment[i]= self.section.get_section_moment_res(e0,k[i])
             rebar_moment[i]= self.rebars.get_rebars_moment_res(e0,k[i],self.section.center)
-        fig = Figure(figsize = (5,5))
-        graph = fig.add_subplot()
         graph.plot(k,total_moment)
         graph.grid()
         graph.set(xlabel='Curvature')
         graph.set(ylabel ='Moment')
         graph.set_title("Total moment")
-        canvas = FigureCanvasTkAgg(fig, master= root)
-        canvas.draw()
-        canvas.get_tk_widget().pack()
-        """graph[1].plot(k,concrete_moment)
-        graph[1].grid()
-        graph[1].set(xlabel='Curvature')
-        graph[1].set(ylabel ='Moment')
-        graph[1].set_title("Concrete moment")
-        graph[2].plot(k,rebar_moment)
-        graph[2].grid()
-        graph[2].set(xlabel='Curvature')
-        graph[2].set(ylabel ='Moment')
-        graph[2].set_title("Rebar moment")"""
         
-    def plot_interaction_curve(self,n_points=100,root=None):
+        
+    def plot_interaction_curve(self,n_points=100):
         fig = Figure(figsize = (5,5))
         graph = fig.add_subplot()
         graph.grid()
@@ -139,7 +120,3 @@ class ReinforcedBeam:
             nu.append(normal / (self.section.material.fck *self.section.get_area()))
             mu.append(moment / (self.section.material.fck *self.section.get_area()*self.section.get_section_height()))
           graph.plot(nu,mu, color ='b')
-        
-        canvas = FigureCanvasTkAgg(fig, master= root)
-        canvas.draw()
-        canvas.get_tk_widget().pack()
